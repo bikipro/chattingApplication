@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Chat</string>
+
+    <string name="register">REGISTER</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="signup_login_hint">Already have an account? Sign In</string>
+    <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
+    <string name="login_name_hint">Name</string>
+    <string name="login_mobile_number_hint">Mobile Number</string>
+    <string name="biki">bikram</string>
+    <string name="title_activity_home">Home</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="new_message_notification_title_template">New message: %1$s</string>
+<!--<string name="default_progile">https://firebasestorage.googleapis.com/v0/b/fir-app-8334e.appspot.com/o/images%2Fimg_323984.png?alt=media&token=b7289541-3fac-481a-af19-1e3199b1424e</string>-->
+    <!-- TODO: remove this placeholder text -->
+
+
+    <string name="action_share">Share</string>
+    <string name="action_reply">Reply</string>
+    <string name="text">Hello....</string>
+    <string name="title">FriendProfile</string>
+</resources>

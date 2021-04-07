@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:selectableItemBackground">
+    <TextView
+        android:id="@+id/date"
+        android:text="5.2.10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:textColor="@color/gray"
+        android:visibility="gone"
+        />
+
+
+
+    <LinearLayout
+        android:id="@+id/containerR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:orientation="vertical"
+        android:background="@drawable/chat_background_lyout"
+        android:layout_margin="2dp"
+        >
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="2dp"
+            android:visibility="gone"
+            />
+        <TextView
+            android:id="@+id/msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily=""
+            android:maxWidth="300dp"
+            android:text="hello..."
+            android:textColor="#ffffff"
+            android:textSize="17sp"
+            />
+        <LinearLayout
+            android:id="@+id/contain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:orientation="horizontal"
+            android:layout_margin="2dp"
+            >
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="15:25 pm"
+                android:textSize="10sp"
+                android:layout_gravity="bottom"
+                android:textColor="@color/gray" />
+
+            <ImageView
+                android:id="@+id/isseenF"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_done_all_black"
+                android:layout_gravity="right|bottom"
+                android:layout_marginRight="5dp"
+
+                />
+            <ImageView
+                android:id="@+id/isseenT"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_done_all_blue"
+                android:layout_gravity="right|bottom"
+                android:layout_marginRight="5dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

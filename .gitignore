@@ -1,0 +1,11 @@
+.gradle
+/gradle
+/local.propertie
+/.idea
+/build
+/captures
+/newChattingApp.iml
+/gradlew.bat
+/gradlew
+/settings.gradle
+/gradle.properties
