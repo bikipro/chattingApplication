@@ -78,7 +78,7 @@ public class MassageActivity extends AppCompatActivity {
     RecyclerChatList recyclerChatList;
     List<ChatModel> list;
     RecyclerView recyclerView;
-    boolean IsFirstTime = true;
+    boolean IsFirstTime = true,notify;
     ChildEventListener seenListener;
     //ValueEventListener seenListener;
     DatabaseReference databaseReference;
@@ -164,6 +164,24 @@ public class MassageActivity extends AppCompatActivity {
             }
         });
 
+        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("allUsers").child(uid);
+        databaseReference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                SearchUserModel user = dataSnapshot.getValue(SearchUserModel.class);
+                if (user.getStatus().equals("active-"+current_uid)) {
+                    notify=false;
+                    Log.e("error","false");
+                }
+                else{notify=true;Log.e("error","true");}
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
@@ -246,7 +264,7 @@ public class MassageActivity extends AppCompatActivity {
 
     }
 
-    public void sendMassageForImage(String sender, String receiver, String msg,String type,MyCallback callback) {//show messages
+    public void sendMassageForImage(String sender, String receiver, String msg,String type,MyCallback callback){//show messages
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd mm yyyy");
         Date date1 = new Date();
         date = simpleDateFormat.format(date1);
@@ -278,6 +296,9 @@ public class MassageActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             showMsgForFirstTime(current_uid, uid);
                             callback.onCallback(value);
+                            if(notify){
+                                sendNotification(receiver, userName, msg);
+                            }
                         }
                     });
                 }
@@ -288,26 +309,14 @@ public class MassageActivity extends AppCompatActivity {
             databaseReference.child("chats").child(chatId).push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
+                    if(notify){
+                        sendNotification(receiver, userName, "image");
+                    }
                 }
             });
         }
-        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("allUsers").child(current_uid);
-        databaseReference1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                SearchUserModel user = dataSnapshot.getValue(SearchUserModel.class);
-                if (!user.getStatus().equals("active-"+current_uid)) {
-                    sendNotification(receiver, user.getName(), msg);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
-
-    }
     public void sendMassage(String sender, String receiver, String msg,String type) {//show messages
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd mm yyyy");
         Date date1 = new Date();
@@ -338,6 +347,9 @@ public class MassageActivity extends AppCompatActivity {
                     databaseReference.child("chats").child(chatId).push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
+                            if(notify){
+                                sendNotification(receiver, userName, msg);
+                            }
                             showMsgForFirstTime(current_uid, uid);
                         }
                     });
@@ -348,33 +360,20 @@ public class MassageActivity extends AppCompatActivity {
             databaseReference.child("chats").child(chatId).push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
+                    if(notify){
+                        sendNotification(receiver, userName, msg);
+                    }
                 }
             });
         }
-        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("allUsers").child(current_uid);
-        databaseReference1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                SearchUserModel user = dataSnapshot.getValue(SearchUserModel.class);
-                if (!user.getStatus().equals("active-"+current_uid))
 
-                    sendNotification(receiver, userName, msg);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
     }
 
     private void sendNotification(String receiver, String name, String msg) {
         DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Token");
         Query query = tokens.orderByKey().equalTo(receiver);
-        query.addValueEventListener(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
@@ -429,7 +428,7 @@ public class MassageActivity extends AppCompatActivity {
                             }
                         }
                     }
-                    recyclerChatList = new RecyclerChatList(MassageActivity.this, list, chatId);
+                    recyclerChatList = new RecyclerChatList(MassageActivity.this, list, chatId,getSupportFragmentManager());
                     recyclerView.setAdapter(recyclerChatList);
                 //}
             }
@@ -450,7 +449,7 @@ public class MassageActivity extends AppCompatActivity {
                                     Log.e("errorList", chatModel.getMsg());
                                 }
                             }
-                            recyclerChatList = new RecyclerChatList(MassageActivity.this, list, chatId);
+                            recyclerChatList = new RecyclerChatList(MassageActivity.this, list, chatId,getSupportFragmentManager());
                             recyclerView.setAdapter(recyclerChatList);
                         }
                     }
@@ -527,7 +526,7 @@ public class MassageActivity extends AppCompatActivity {
                             Log.e("errorList", chatModel.getMsg());
                         }
                     }
-                    recyclerChatList = new RecyclerChatList(MassageActivity.this, list, chatId);
+                    recyclerChatList = new RecyclerChatList(MassageActivity.this, list, chatId,getSupportFragmentManager());
                     recyclerView.setAdapter(recyclerChatList);
                 }
             }

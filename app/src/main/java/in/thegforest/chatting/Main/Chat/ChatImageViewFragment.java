@@ -1,5 +1,4 @@
 package in.thegforest.chatting.Main.Chat;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +9,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.squareup.picasso.Picasso;
 
 import in.thegforest.chatting.R;
 
@@ -22,7 +23,8 @@ public class ChatImageViewFragment extends DialogFragment {
         String uri=getArguments().getString("uri");
         View view=inflater.inflate(R.layout.show_chat_image,container,false);
         imageView=view.findViewById(R.id.imageView);
-        imageView.setImageURI(Uri.parse(uri));
+        Picasso.with(getContext()).load(uri).into(imageView);
+        //imageView.setImageURI(Uri.parse(uri));
         return view;
     }
 }

@@ -1,28 +1,25 @@
 package in.thegforest.chatting.Main.Chat;
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.FirebaseApiNotAvailableException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,11 +29,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
-import java.util.HashMap;
 import java.util.List;
 
 import in.thegforest.chatting.Main.Adapter.ChatModel;
-import in.thegforest.chatting.Main.profiles.OwnProfile;
 import in.thegforest.chatting.R;
 
 public class RecyclerChatList extends RecyclerView.Adapter<RecyclerChatList.ProgrammingViewHolder> {
@@ -48,13 +43,15 @@ public class RecyclerChatList extends RecyclerView.Adapter<RecyclerChatList.Prog
     FirebaseUser fUser;
     String chatId;
     int size;
+    FragmentManager fm;
 
-    public RecyclerChatList(Context context, List<ChatModel> mChat, String chatId) {
+    public RecyclerChatList(Context context, List<ChatModel> mChat, String chatId,FragmentManager fm) {
 
         mContetxt = context;
         this.mChat = mChat;
         size = mChat.size();
         this.chatId = chatId;
+        this.fm=fm;
     }
 
     @NonNull
@@ -130,8 +127,8 @@ public class RecyclerChatList extends RecyclerView.Adapter<RecyclerChatList.Prog
                     Bundle bundle=new Bundle();
                     bundle.putString("uri",chatModel.getMsg());
                     ChatImageViewFragment chatImageViewFragment=new ChatImageViewFragment();
-
-                    //chatImageViewFragment.show(getSupportFragmentManager());
+                    chatImageViewFragment.setArguments(bundle);
+                    chatImageViewFragment.show(fm,"Image");
                 }
             }
         });
